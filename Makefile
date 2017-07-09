@@ -8,7 +8,6 @@ test: build
 	@docker run --rm -v $(CURDIR)/tests:/tests -v $(CURDIR)/tmp:/data alpine sh -c 'diff /tests/expected-response.txt /data/*'
 
 build: rel/sender
-	@docker build -t imegateleport/sender .
 
 rel/sender:
 	@docker run --rm \
