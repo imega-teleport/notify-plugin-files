@@ -1,13 +1,13 @@
 package sender
 
 import (
-	"testing"
 	"net/http"
 	"net/url"
+	"testing"
 )
 
 func TestSender_Send(t *testing.T) {
-	s := NewSender(&http.Client{}, &url.URL{})
+	s := NewSender(&http.Client{}, UrlAndAuth{})
 	s.Send([]File4send{
 		{
 			Url: FileUrl{url.URL{
@@ -23,4 +23,3 @@ func TestSender_Send(t *testing.T) {
 		},
 	})
 }
-
