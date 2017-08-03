@@ -5,7 +5,7 @@ test: build
 		golang:1.8-alpine sh -c "go list ./... | grep -v 'vendor\|integration' | xargs go test"
 	@docker run -d --name nginx_stub -v $(CURDIR)/tmp:/data -p 80:80 imega/nginx-stub
 	@docker run --rm -v $(CURDIR)/rel:/usr/local/bin -v $(CURDIR):/data -w /data --link nginx_stub:server alpine sh -c 'sender -url "http://server:80" -storageUrl storage.ru -user authuser -pass authpass -path "tests/fixtures"'
-	@docker run --rm -v $(CURDIR)/tests:/tests -v $(CURDIR)/tmp:/data alpine sh -c 'more /tests/expected-response.txt; more /data/*; diff /tests/expected-response.txt /data/*'
+	@docker run --rm -v $(CURDIR)/tests:/tests -v $(CURDIR)/tmp:/data alpine sh -c 'diff /tests/expected-response.txt /data/*'
 
 build: rel/sender
 
