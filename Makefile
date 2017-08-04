@@ -22,3 +22,4 @@ rel/sender:
 
 clean:
 	@-docker rm -fv nginx_stub
+	@-rm -rf $(CURDIR)/tmp
