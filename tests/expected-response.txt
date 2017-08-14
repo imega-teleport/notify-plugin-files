@@ -1,9 +1,9 @@
 POST / HTTP/1.1
 Host: server:80
 User-Agent: Teleport/1.0
-Content-Length: 91
-Authorization: Basic YXV0aHVzZXI6YXV0aHBhc3M=
+Content-Length: 121
+Authorization: Basic YWJkMzhmMWQtYmU5NC00ZjJmLWNmMWQtZTgwOWRiYWMzMTU3OmF1dGhwYXNz
 Content-Type: application/json
 Accept-Encoding: gzip
 
-[{"url":"storage.ru/tests/fixtures/testfile.txt","sum":"69164f5d00c8ee3a8f6d67902689de94"}]
+[{"url":"storage.ru/storage/abd38f1d-be94-4f2f-cf1d-e809dbac3157/testfile.txt","sum":"69164f5d00c8ee3a8f6d67902689de94"}]

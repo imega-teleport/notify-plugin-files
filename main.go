@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"time"
+	"path/filepath"
 
 	"github.com/imega-teleport/notify-plugin-files/fileman"
 	"github.com/imega-teleport/notify-plugin-files/sender"
@@ -53,7 +54,7 @@ func main() {
 		u := url.URL{
 			Scheme: storageUrl.Scheme,
 			Host:   storageUrl.Host,
-			Path:   fmt.Sprintf("%s/%s", storageUrl.Path, v.Name()),
+			Path:   fmt.Sprintf("%s/%s/%s", storageUrl.Path, *user, filepath.Base(v.Name())),
 		}
 		item := sender.File4send{
 			Url: sender.FileUrl{u},
