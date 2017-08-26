@@ -10,7 +10,7 @@ import (
 
 // FileMan is the interface that wraps the basic Search and Calculate methods
 type FileMan interface {
-	Search(path string) (files []*os.File, err error)
+	Search(path string) (files map[string]*os.File, err error)
 	Calculate(f *os.File) (sum string, err error)
 }
 
@@ -21,8 +21,8 @@ func NewFileMan() FileMan {
 	return &fm{}
 }
 
-func (fm *fm) Search(root string) (files []*os.File, err error) {
-
+func (fm *fm) Search(root string) (files map[string]*os.File, err error) {
+	files = map[string]*os.File{}
 	err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -36,7 +36,7 @@ func (fm *fm) Search(root string) (files []*os.File, err error) {
 			return err
 		}
 
-		files = append(files, f)
+		files[filepath.Base(f.Name())] = f
 
 		return nil
 	})

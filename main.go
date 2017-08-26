@@ -7,20 +7,22 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"time"
 	"path/filepath"
+	"sort"
+	"time"
 
 	"github.com/imega-teleport/notify-plugin-files/fileman"
 	"github.com/imega-teleport/notify-plugin-files/sender"
+	"vbom.ml/util/sortorder"
 )
 
 func main() {
 	pluginUrl := flag.String("url", "", "Set url to connect plugin")
-	storageUrlStr := flag.String("storageUrl", "", "Set storage url")
+	storageUrlStr := flag.String("storageUrl", "a.imega.ru/storage", "Set storage url")
 	timeout := flag.Int("timeout", 60, "timeout connection (seconds)")
-	user := flag.String("user", "", "User auth")
+	user := flag.String("user", "uuid", "User auth")
 	pass := flag.String("pass", "", "pass auth")
-	path := flag.String("path", "", "path")
+	path := flag.String("path", "tests/sql", "path")
 	flag.Parse()
 
 	storageUrl, err := url.Parse(*storageUrlStr)
@@ -43,9 +45,16 @@ func main() {
 	}
 
 	items := []sender.File4send{}
+	filenames := []string{}
 
-	for _, v := range files {
-		sum, err := fm.Calculate(v)
+	for k, _ := range files {
+		filenames = append(filenames, k)
+	}
+
+	sort.Sort(sortorder.Natural(filenames))
+
+	for _, v := range filenames {
+		sum, err := fm.Calculate(files[v])
 		if err != nil {
 			fmt.Printf("Cound not to calculate sum of file: %s", err)
 			os.Exit(1)
@@ -54,11 +63,12 @@ func main() {
 		u := url.URL{
 			Scheme: storageUrl.Scheme,
 			Host:   storageUrl.Host,
-			Path:   fmt.Sprintf("%s/%s/%s", storageUrl.Path, *user, filepath.Base(v.Name())),
+			Path:   fmt.Sprintf("%s/%s/%s", storageUrl.Path, *user, filepath.Base(files[v].Name())),
 		}
 		item := sender.File4send{
-			Url: sender.FileUrl{u},
-			Sum: sum,
+			FileName: filepath.Base(files[v].Name()),
+			Url:      sender.FileUrl{u},
+			Sum:      sum,
 		}
 
 		items = append(items, item)

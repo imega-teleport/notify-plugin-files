@@ -18,11 +18,11 @@ func TestFm_Search_WithExistsPath_ReturnsOneFile(t *testing.T) {
 	actual, err := fm.Search("../tests/fixtures")
 	assert.NoError(t, err)
 
-	assert.Equal(t, 1, len(actual))
+	assert.Equal(t, 44, len(actual))
 }
 
 func Test_FmCalculate_WithFile_ReturnsSumFile(t *testing.T) {
-	f, err := os.Open("../tests/fixtures/testfile.txt")
+	f, err := os.Open("../tests/fixtures/out_1_44.sql")
 	if err != nil {
 		t.Errorf("Cound not open file, %s", err)
 	}
@@ -31,5 +31,5 @@ func Test_FmCalculate_WithFile_ReturnsSumFile(t *testing.T) {
 	actual, err := fm.Calculate(f)
 
 	assert.NoError(t, err)
-	assert.Equal(t, "69164f5d00c8ee3a8f6d67902689de94", actual)
+	assert.Equal(t, "d41d8cd98f00b204e9800998ecf8427e", actual)
 }

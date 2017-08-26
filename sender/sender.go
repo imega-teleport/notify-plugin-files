@@ -22,8 +22,9 @@ func (f FileUrl) MarshalJSON() ([]byte, error) {
 }
 
 type File4send struct {
-	Url FileUrl `json:"url"`
-	Sum string  `json:"sum"`
+	FileName string  `json:"-"`
+	Url      FileUrl `json:"url"`
+	Sum      string  `json:"sum"`
 }
 
 type UrlAndAuth struct {

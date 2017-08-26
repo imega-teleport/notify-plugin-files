@@ -19,9 +19,14 @@
   revision = "69483b4bd14f5845b5a1e55bca19e954e827f1d0"
   version = "v1.1.4"
 
+[[projects]]
+  name = "vbom.ml/util"
+  packages = ["sortorder"]
+  revision = "256737ac55c46798123f754ab7d2c784e2c71783"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a3f0936778bf7527e2d281c9627a81eef5b758c989349ae8b3e3d62e2a720880"
+  inputs-digest = "bb5f155b9cc0ee98a1bdce0587283eb06902f22cb7d5071ab99e5abaf9c15982"
   solver-name = "gps-cdcl"
   solver-version = 1
