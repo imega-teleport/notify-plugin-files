@@ -4,4 +4,12 @@ services:
 go:
 - 1.8
 script:
-- make test
+- make test || exit 1
+after_success:
+- 'curl -s -X POST -H "Content-Type: application/json" -H "Accept: application/json"
+  -H "Travis-API-Version: 3" -H "Authorization: token $TOKEN_TESTING" -d ''{"request":
+  {"branch":"master"}}'' https://api.travis-ci.org/repo/imega-teleport%2Fyork/requests'
+notifications:
+  slack:
+    rooms:
+      secure: VM+oBY+m93hG3SRTTu64SvH7FqdEeLbFjhB4XpqxDedQbRLMaeYe/uR/fRl07PVhEDrGr5xN1Nwf/P26c8mjs7Fm2Fmf+CKqEpin+qoHp/ht2V5o/CSU1uM7JY6+rkc+eqh+F2CsVOJ/bfd2T1UWNOcgMl2NX8E+Hm6bvYU/PSCewdIk3bWT/zv+GY9UeiZSMjYIxJOnVhbO36ltR5ILcGAskKet5uLUp3pqlA0k/f1GxBFlvy+sBdhCUzrzP04GCIgy+uCtAjpVLnzGggByO9GrPyWDJq8+dCDwgaa/tzmxhYhysyixfxgY2vWiyiNyfDtNl1czaOveeFk1Nkyx+K2Cm4vh3Ow9FTSdEoYxMZESHaFcxi6owxDzSfPEhE39FxwAf1WmjuU80+D2+YYP1I+D+WK+pCKYkLWJKqGShx30IRoDRHZp4BHVUAd4OrKm3q7vgGqDrp8LahhGTaSXmc/qupnB0W+hYxwBIgi8ZI12bIAuSLt5YMhThPmvEp1BbfOztJgYVyIMFBUzhLA5vfKBnTcSPzGYd4LmgGph5eJ4qrFP0u3h9ApSafIytDw9o1rkg561qF304t2u1NxyR98epBelxSCfCfcWDfPkX/RHVw3YpUWd5lffQDcvU2HOzwnnP9MnroMsLOCBEFVcKXzTXpDRoNIROhoj/QRK70A=
